@@ -1,3 +1,0 @@
-import {NextResponse} from 'next/server';import crypto from 'crypto';
-export async function POST(req:Request){const {username,password}=await req.json();if(username!==process.env.ADMIN_USERNAME||password!==process.env.ADMIN_PASSWORD)return NextResponse.json({error:'Invalid admin credentials'},{status:401});const token=crypto.createHmac('sha256',process.env.ADMIN_PASSWORD||'secret').update(username+'|admin').digest('hex');return NextResponse.json({token})}
-export function valid(req:Request){const a=req.headers.get('authorization')||'';const token=crypto.createHmac('sha256',process.env.ADMIN_PASSWORD||'secret').update((process.env.ADMIN_USERNAME||'admin')+'|admin').digest('hex');return a===`Bearer ${token}`}
