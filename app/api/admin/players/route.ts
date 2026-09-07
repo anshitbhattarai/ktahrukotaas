@@ -1,2 +1,0 @@
-import {NextResponse} from 'next/server';import {createClient} from '@supabase/supabase-js';import {valid} from '../login/route';
-export async function GET(req:Request){if(!valid(req))return NextResponse.json({error:'Unauthorized'},{status:401});const s=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!,process.env.SUPABASE_SERVICE_ROLE_KEY!);const {data,error}=await s.from('players').select('*').order('created_at',{ascending:false});return NextResponse.json({players:data||[],error:error?.message})}
